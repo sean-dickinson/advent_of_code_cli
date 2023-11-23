@@ -25,12 +25,12 @@ module AdventOfCode
         "inputs/#{day_string}.txt"
       end
 
-      def example_file_name
-        "examples/#{day_string}/#{@name}.txt"
+      def spec_file_name
+        "spec/#{day_string}_spec.rb"
       end
 
-      def example_expected_file_name
-        "examples/#{day_string}/#{@name}_expected.yml"
+      def test_input_file_name
+        "spec/test_inputs/#{day_string}.txt"
       end
 
       def create_file(file_name, contents = nil)

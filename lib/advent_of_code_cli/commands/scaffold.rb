@@ -20,14 +20,24 @@ module AdventOfCode
           create_file(input_file_name)
         end
 
-        unless Dir.exist?("examples")
-          say("Creating examples directory...")
-          Dir.mkdir("examples")
+        unless Dir.exist?("spec")
+          say("Creating spec directory...")
+          Dir.mkdir("spec")
         end
 
-        unless Dir.exist?("examples/#{day_string}")
-          say("Creating examples/#{day_string} directory...")
-          Dir.mkdir("examples/#{day_string}")
+        unless File.exist?(spec_file_name)
+          say("Creating file: #{spec_file_name}...")
+          create_file(spec_file_name, spec_file_contents)
+        end
+
+        unless Dir.exist?("spec/test_inputs")
+          say("Creating test_inputs directory...")
+          Dir.mkdir("spec/test_inputs")
+        end
+
+        unless File.exist?(test_input_file_name)
+          say("Creating file: #{test_input_file_name}...")
+          create_file(test_input_file_name)
         end
 
         say "Done!", :green
@@ -45,6 +55,29 @@ module AdventOfCode
 
               def part_two(input)
                 raise NotImplementedError
+              end
+            end
+          end
+        RUBY
+      end
+
+      def spec_file_contents
+        <<~RUBY
+          require "./#{day_string}"
+          RSpec.describe Day#{day_string} do
+            context "part 1" do
+              it "returns the correct answer for the example input" do
+                pending
+                input = File.readlines("spec/test_inputs/#{day_string}.txt", chomp: true)
+                expect(Day#{day_string}.part_one(input)).to eq 0 # TODO: replace with correct answer
+              end
+            end
+
+            context "part 2" do
+              it "returns the correct answer for the example input" do
+                pending
+                input = File.readlines("spec/test_inputs/#{day_string}.txt", chomp: true)
+                expect(Day#{day_string}.part_two(input)).to eq 0 # TODO: replace with correct answer
               end
             end
           end
